@@ -14,5 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+Route::post("/results", function (\Illuminate\Http\Request $request) {
+
+
+    if ($request->input("price") && $request->input("discount")) {
+        $discount_amount = $request->input("price") * $request->input("discount") * 0.01;
+        $discount_price = $request->input("price") * (100 - $request->input("discount")) * 0.01;
+
+        return view("result", ["discount_amount" => $discount_amount, "discount_price" => $discount_price]);
+    }
+});
+
+
